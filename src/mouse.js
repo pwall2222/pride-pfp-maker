@@ -4,13 +4,13 @@ class Mouse {
 	constructor(element, fn) {
 		this.fn = fn;
 		this.element = element;
-		element.addEventListener("mousedown", this.down.bind(this), false);
-		document.addEventListener("mouseup", this.up.bind(this), false);
-		document.addEventListener("mousemove", this.move.bind(this), false);
+		element.addEventListener("pointerdown", this.down.bind(this), false);
+		document.addEventListener("pointerup", this.up.bind(this), false);
+		document.addEventListener("pointermove", this.move.bind(this), false);
 	}
 	down(e) {
 		this.drag = true;
-		this.fn(e);
+		this.fn(e.offsetX, e.offsetY);
 	}
 	up() {
 		this.drag = false;
