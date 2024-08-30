@@ -1,6 +1,9 @@
 const colorBlock = document.getElementById("color-block");
 const colorStrip = document.getElementById("color-strip");
 
+const colorBlockPic = document.querySelector(".color-picker-block-indicator");
+const colorStripPic = document.querySelector(".color-picker-strip-indicator");
+
 const block = {
 	ctx: colorBlock.getContext("2d"),
 	w: colorBlock.width,
@@ -54,9 +57,11 @@ const fillGradient = () => {
 	ctx.fillRect(0, 0, block.w, block.h);
 };
 
-const blockColor = (e) => {
-	x = e.offsetX;
-	y = e.offsetY;
+const blockColor = (nx, ny) => {
+	x = nx;
+	y = ny;
+	colorBlockPic.style.top = `${y}px`;
+	colorBlockPic.style.left = `${x}px`;
 	updateColor();
 };
 
@@ -70,9 +75,9 @@ const updateColor = () => {
 	editor.refreshCanvas();
 };
 
-const stripColor = (e) => {
-	const { offsetX: ex, offsetY: ey } = e;
-	let imageData = strip.ctx.getImageData(ex, ey, 1, 1).data;
+const stripColor = (x, y) => {
+	colorStripPic.style.top = `${y}px`;
+	let imageData = strip.ctx.getImageData(x, y, 1, 1).data;
 	rgbaColor = getRGBA(imageData);
 	fillGradient();
 	updateColor();
