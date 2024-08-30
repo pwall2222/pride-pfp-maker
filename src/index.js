@@ -380,6 +380,17 @@ uploadButton.onchange = function () {
 		loadImgFromFile(this.files[0], onPfpUpload);
 };
 
+document.onpaste = function (event) {
+    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    for (const item of items) {
+        if (item.kind !== 'file') {
+			continue;
+		}
+		const blob = item.getAsFile();
+		loadImgFromFile(blob, onPfpUpload);
+    }
+};
+
 // --- exporting
 continueEditing.onclick = function () {
 	selectDiv(editorDiv);
